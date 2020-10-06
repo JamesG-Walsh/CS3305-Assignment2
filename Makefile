@@ -7,3 +7,6 @@
 
 run:
 	$ ./assignment2 "ab" "cd" "ef"
+
+run2:
+	$ ./assignment2 "CS" "3305" " is fun!"

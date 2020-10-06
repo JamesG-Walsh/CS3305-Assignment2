@@ -57,14 +57,17 @@ int main(int argc, char **argv)
 	int port[2];
 	pid_t forking_pid, parent_pid, child_pid;
 
-	char x[80];
+	//printf("length of x  = %d\n", strlen(argv[1]));
+	char x[strlen(argv[1])];
 	strcpy(x, argv[1]);
 
-	char y[80];
+	char y[strlen(argv[2])];
 	strcpy(y, argv[2]);
 
-	char z[80];
+	char z[strlen(argv[3])];
 	strcpy(z, argv[3]);
+
+	int y_prime_length = strlen(y) + strlen(z);
 
 	if (pipe(port) < 0)
 	{
@@ -80,19 +83,18 @@ int main(int argc, char **argv)
 		exit(0);
 	}
 
-	parent_pid = getpid();
-
 	if(forking_pid > 0) // parent
 	{
+		parent_pid = getpid();
 		child_pid = forking_pid;
 		
 		printf("parent (PID %d) created a child (PID %d)\n", parent_pid, child_pid);
 
 		printf("parent (PID %d) receives X = \"%s\" from the user\n", parent_pid, x);
 
-		char y_prime[80];
+		char y_prime[y_prime_length];
 
-		read(port[READ_END], y_prime, 160);
+		read(port[READ_END], y_prime, y_prime_length);
 		printf("parent (PID %d) reads Y' from the pipe (Y' = \"%s\")\n", parent_pid, y_prime);
 
 		strcat(x,y_prime);
@@ -108,8 +110,9 @@ int main(int argc, char **argv)
 		strcat(y, z);
 		printf("child (PID %d) concatenates Y and Z to generate Y'= %s\n", child_pid, y);
 
-		write(port[WRITE_END],y, strlen(y) );
+		write(port[WRITE_END], y, strlen(y));
 		printf("child (PID %d) writes Y' into the pipe\n", child_pid);
 	}
+
 	return 0;
 }
