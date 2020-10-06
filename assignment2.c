@@ -34,23 +34,25 @@ int main(int argc, char **argv)
 		exit(0);
 	}
 
-/*
+	/*
 	// You must insert the following into your code (Replace zeros with the appropriate values/variables)
-	//printf("A pipe is created for communication between parent (PID %d) and child\n", 0);
-	//printf("parent (PID %d) created a child (PID %d)\n", 0, 0);
-	//printf("parent (PID %d) receives X = \"%s\" from the user\n", 0, 0);
-	//printf("child (PID %d) receives Y = \"%s\" and Z = \"%s\" from the user\n", 0, 0, 0);
-	//printf("child (PID %d) concatenates Y and Z to generate Y'= %s\n", 0, 0);
-	//printf("child (PID %d) writes Y' into the pipe\n", 0);
-	//printf("parent (PID %d) reads Y' from the pipe (Y' = \"%s\")\n", 0, 0);
+	printf("A pipe is created for communication between parent (PID %d) and child\n", 0);
+	printf("parent (PID %d) created a child (PID %d)\n", 0, 0);
+	printf("parent (PID %d) receives X = \"%s\" from the user\n", 0, 0);
+	printf("child (PID %d) receives Y = \"%s\" and Z = \"%s\" from the user\n", 0, 0, 0);
+	printf("child (PID %d) concatenates Y and Z to generate Y'= %s\n", 0, 0);
+	printf("child (PID %d) writes Y' into the pipe\n", 0);
+	printf("parent (PID %d) reads Y' from the pipe (Y' = \"%s\")\n", 0, 0);
 	printf("parent (PID %d) concatenates X and Y' to generate the string: %s\n", 0, 0);
-*/
+	*/
 	// Note: You do not need to implement a function to concatenate two strings. "string.h" header file has been included
 
 
 
 	/***************************************************************************************************
-	 * 										   YOUR CODE GOES HERE										
+	 * 										   YOUR CODE GOES HERE	
+	 * CS305A - Assignment 2
+	 * James Walsh - jwalsh57 - 250481718
 	 ***************************************************************************************************/
 	int port[2];
 	pid_t forking_pid, parent_pid, child_pid;
@@ -88,12 +90,12 @@ int main(int argc, char **argv)
 
 		printf("parent (PID %d) receives X = \"%s\" from the user\n", parent_pid, x);
 
-		char d[80];
+		char y_prime[80];
 
-		read(port[READ_END], d, 160);
-		printf("parent (PID %d) reads Y' from the pipe (Y' = \"%s\")\n", parent_pid, d);
+		read(port[READ_END], y_prime, 160);
+		printf("parent (PID %d) reads Y' from the pipe (Y' = \"%s\")\n", parent_pid, y_prime);
 
-		strcat(x,d);
+		strcat(x,y_prime);
 		printf("parent (PID %d) concatenates X and Y' to generate the string: %s\n", parent_pid, x);
 	}
 
