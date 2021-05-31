@@ -7,6 +7,6 @@
  
 `make` - compiles program
 
-`make run` - runs program.
+`make run` - runs program
 
 `make clean` - cleans up when finished
